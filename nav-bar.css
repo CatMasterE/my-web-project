@@ -1,0 +1,19 @@
+.nav-bar {
+    background-color: sandybrown;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: yellow;
+    padding: 14px 16px;
+}
+
+.nav-bar a:hover{
+    background-color: darkorange;
+}
+
+.active {
+    background-color:goldenrod;
+}
