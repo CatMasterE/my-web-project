@@ -1,7 +1,8 @@
 
 html,body {
+    background-color:orange ;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 50px;
+    font-size: 24px;
     background-color:orange;
     margin: 0px
 }
