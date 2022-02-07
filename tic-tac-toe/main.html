@@ -22,6 +22,13 @@
 </body>
 <script defer>
     const body = document.getElementById("body")
+
+    const matrix = [
+        [1,0,0],
+        [0,0,0],
+        [0,0,0],
+    ]
+    console.log(matrix[0][0])
     let turn = 0
 
     for(let i = 0; i < 3; i++){
@@ -40,14 +47,67 @@
         console.log(e.path[0].id)
         const cell = document.getElementById(e.path[0].id)
         cell.style.backgroundColor = "orange"
+        const [x,y] = cell.id.split("-")
 
+        console.log(x)
+        console.log(y)
         if (turn % 2 === 0){
             cell.innerHTML = "X"
+            matrix[y][x] = 1
         } else {
             cell.innerHTML = "O"
+            matrix[y][x] = -1
         }
 
+        console.log(matrix)
+        checkWinner(matrix)
         turn ++
+    }
+
+    function checkWinner(matrix){
+             //Y X
+        if(matrix[0][0] + matrix[0][1] + matrix[0][2] === 3){
+            console.log("player 1 won")
+        }
+        if(matrix[0][0] + matrix[0][1] + matrix[0][2] === -3){
+            console.log("player 2 won")
+        }
+        if(matrix[1][0] + matrix[1][1] + matrix[1][2] === 3){
+            console.log("player 1 won")
+        }
+        if(matrix[1][0] + matrix[1][1] + matrix[1][2] === -3){
+            console.log("player 2 won")
+        }
+        if(matrix[2][0] + matrix[2][1] + matrix[2][2] === 3){
+            console.log("player 1 won")
+        }
+        if(matrix[2][0] + matrix[2][1] + matrix[2][2] === -3){
+            console.log("player 2 won")
+        }
+        if(matrix[2][0] + matrix[1][1] + matrix[0][2] === 3){
+            console.log("player 1 won")
+        }
+        if(matrix[2][0] + matrix[1][1] + matrix[0][2] === -3){
+            console.log("player 2 won")
+        }
+        if(matrix[0][0] + matrix[1][1] + matrix[2][2] === 3){
+            console.log("player 1 won")
+        }
+        if(matrix[0][0] + matrix[1][1] + matrix[2][2] === -3){
+            console.log("player 2 won")
+        }
+        if(matrix[0][2] + matrix[1][2] + matrix[2][2] === 3){
+            console.log("player 1 won")
+        }
+        if(matrix[0][2] + matrix[1][2] + matrix[2][2] === -3){
+            console.log("player 2 won")
+        }
+        if(matrix[0][0] + matrix[1][0] + matrix[2][0] === 3){
+            console.log("player 1 won")
+        }
+        if(matrix[0][0] + matrix[1][0] + matrix[2][0] === -3){
+            console.log("player 2 won")
+        }
     }
 
 </script>
