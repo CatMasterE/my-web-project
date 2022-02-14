@@ -24,7 +24,7 @@
     const body = document.getElementById("body")
 
     const matrix = [
-        [1,0,0],
+        [0,0,0],
         [0,0,0],
         [0,0,0],
     ]
@@ -111,6 +111,12 @@
             console.log("Player 2 won")
         }
         result = matrix[2][0] + matrix[1][0] + matrix[0][0]
+        if (result === 3){
+            console.log("Player 1 won")
+        }else if(result === -3){
+            console.log("Player 2 won")
+        }
+        result = matrix[0][1] + matrix[1][1] + matrix[2][1]
         if (result === 3){
             console.log("Player 1 won")
         }else if(result === -3){
