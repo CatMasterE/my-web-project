@@ -10,7 +10,8 @@
             width: 50px;
             height: 50px;
             background-color: green;
-            border: solid 1px
+            border: solid 1px;
+            border-radius: 10%
         }
         body > div {
             display: flex
@@ -22,28 +23,73 @@
     const body = document.getElementById("body")
     const length = 10
     const height = 10
+    const speed = 100
 
-    for(let y = 0; y < 10; y++){
+    let xPos = Math.trunc(length / 2)
+    let yPos = Math.trunc(height / 2)
+    let direction = "right"
+
+    setInterval(draw,speed)
+
+    document.addEventListener("keydown", (e) => {
+        switch(e.key){
+        case "w":
+            direction = "up"
+        break;
+        case 'd':
+            direction = "right"
+        break;
+        case 's':
+            direction = "down"
+        break;
+        case 'a':
+            direction = "left"
+        }
+    })
+
+    function draw(){
+        //console.log(xPos, yPos)
+        changePosition()
+        removeAllChildNodes(body)
+        for(let y = 0; y < 10; y++){
         const row = document.createElement("div");
+
+            
         for(let x = 0; x < 10; x++){
             const cell = document.createElement("div")
             cell.id = '${x}-${y}'
+            if(xPos === x && yPos === y)(
+                cell.style.backgroundColor = "red"
+            )
             row.append(cell)
         }
         body.append(row)
     }
+    }
+    
+    function changePosition(){
+        switch(direction){
+            case"up":
+                yPos--;
+            break;
+            case "right":
+                xPos++;
+            break;
+            case "left":
+                xPos--;
+            break;
+            case "down":
+                yPos++;
+        }
+    }
 
-    document.addEventListener("keydown", (e) => {
-        switch(e.key){
-            case 'w':
-                console.lod("up");
-                break;
-            case 'd':
-                console.log("right")
-                break;
+    function removeAllChildNodes(parent){
+        while (parent.firstChild){
+            parent.removeChild(parent.firstChild)
         }
 
-    })
+    }
+
 
 </script>
 </html>
