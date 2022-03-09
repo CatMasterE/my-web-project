@@ -40,6 +40,7 @@
     let xPos = Math.trunc(length / 2)
     let yPos = Math.trunc(height / 2)
     let direction = "right"
+    let appleCoords = generateAppleCoords()
 
     const snakeInitialLength = 5;
     let score = 0
@@ -57,16 +58,24 @@
     document.addEventListener("keydown", (e) => {
         switch(e.key){
         case "w":
-            direction = "up"
+            if(direction !== "down"){
+                direction = "up"
+            }
         break;
         case 'd':
-            direction = "right"
+            if(direction !== "left"){
+                direction = "right"
+            }
         break;
         case 's':
-            direction = "down"
+            if(direction !== "up"){
+                direction = "down"
+            }
         break;
         case 'a':
-            direction = "left"
+            if(direction !== "right"){
+                direction = "left"
+            }
         }
     })
 
@@ -80,29 +89,32 @@
             
         for(let x = 0; x < length; x++){
             const cell = document.createElement("div")
-            cell.id = '${x}-${y}'
+            cell.id = `${x}-${y}`
             if(xPos === x && yPos === y)(
                 cell.style.backgroundColor = "red"
             )
             row.append(cell)
         }
         body.append(row)
+
     }
+        snakeBody.push({x: xPos, y:yPos})
+
+        const snake = []
+
+        for (let i = snakeBody.length -1; i > snakeBody.length - (snakeInitialLength + score) && i > 0; i--)
+        {
+            snake.push(snakeBody[i])
+        }
+
+        snake.forEach(part => {
+            const snake = document.getElementById(`${part.x}-${part.y}`)
+            snake.style.backgroundColor = "blue"
+        })
+
+        spawnApple(appleCoords.x, appleCoords.y)
     }
 
-    snakeBody.push({x: xPos, y:yPos})
-
-    const snake = []
-
-    for (let i = snakeBody.length -1; i > snakeBody.length - (snakeInitialLength + score) && i > 0; i--){
-        snake.push(snakeBody[i])
-    }
-
-    snake.forEach(part => {
-        const snake = document.getElementById(`${part.x}-${part.y}`)
-        snake.style.backgroundColor = "blue"
-        snake.style.borderRadius = "50%"
-    })
 
     function changePosition(){
         switch(direction){
@@ -124,9 +136,20 @@
         while (parent.firstChild){
             parent.removeChild(parent.firstChild)
         }
-
     }
 
+    function generateAppleCoords (){
+        const xValue = Math.round(Math.random() * length)
+        const yValue = Math.round(Math.random() * height)
+        return {x: xValue, y: yValue}
+    }    
+
+    function spawnApple (xValue, yValue) {
+
+        const cell = document.getElementById(`${xValue}-${yValue}`)
+
+        cell.style.backgroundColor = "red"
+    }
 
 </script>
 </html>
