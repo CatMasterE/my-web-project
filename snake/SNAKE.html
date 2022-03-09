@@ -7,29 +7,52 @@
     <title>SNAKE</title>
     <style>
         #body > div > div{
-            width: 50px;
-            height: 50px;
+            width: 20px;
+            height: 20px;
             background-color: green;
             border: solid 1px;
-            border-radius: 10%
+            border-radius: 10%;
+            z-index: 1;
         }
-        body > div {
+        #body > div {
             display: flex
+        }
+
+        .start-button{
+            position: abosolute;
+            left: 800px;
+            z-index: 10;
         }
     </style>
 </head>
-<body id="body"></body>
+<body>
+    <button class="start-button" id="start-button">START</button>
+    <div id="body"></div>
+</body>
 <script>
+    const startButton = document.getElementById("start-button")
     const body = document.getElementById("body")
-    const length = 10
-    const height = 10
+    const length = 30
+    const height = 30
     const speed = 100
+    let started = false
 
     let xPos = Math.trunc(length / 2)
     let yPos = Math.trunc(height / 2)
     let direction = "right"
 
-    setInterval(draw,speed)
+    const snakeInitialLength = 5;
+    let score = 0
+    let snakeBody = [{x: xPos, y: yPos}]
+
+    let interval;
+
+    startButton.addEventListener("click",()=>{
+        if(!started){
+            interval = setInterval(draw,speed)
+            started = true
+        }
+    })
 
     document.addEventListener("keydown", (e) => {
         switch(e.key){
@@ -51,11 +74,11 @@
         //console.log(xPos, yPos)
         changePosition()
         removeAllChildNodes(body)
-        for(let y = 0; y < 10; y++){
+        for(let y = 0; y < height; y++){
         const row = document.createElement("div");
 
             
-        for(let x = 0; x < 10; x++){
+        for(let x = 0; x < length; x++){
             const cell = document.createElement("div")
             cell.id = '${x}-${y}'
             if(xPos === x && yPos === y)(
@@ -66,7 +89,21 @@
         body.append(row)
     }
     }
-    
+
+    snakeBody.push({x: xPos, y:yPos})
+
+    const snake = []
+
+    for (let i = snakeBody.length -1; i > snakeBody.length - (snakeInitialLength + score) && i > 0; i--){
+        snake.push(snakeBody[i])
+    }
+
+    snake.forEach(part => {
+        const snake = document.getElementById(`${part.x}-${part.y}`)
+        snake.style.backgroundColor = "blue"
+        snake.style.borderRadius = "50%"
+    })
+
     function changePosition(){
         switch(direction){
             case"up":
