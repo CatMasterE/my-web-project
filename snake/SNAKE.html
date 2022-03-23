@@ -17,7 +17,11 @@
         #body > div {
             display: flex
         }
-
+        
+        #body {
+            border: 20px solid darkgreen;
+            width: fit-content
+        }
         .start-button{
             position: abosolute;
             left: 800px;
@@ -80,9 +84,14 @@
     })
 
     function draw(){
-        //console.log(xPos, yPos)
+        let alternateColor = true
         changePosition()
         removeAllChildNodes(body)
+        if(appleCoords.x === xPos && appleCoords.y === yPos){
+            appleCoords= generateAppleCoords()
+            score ++;
+        }
+        
         for(let y = 0; y < height; y++){
         const row = document.createElement("div");
 
@@ -101,7 +110,6 @@
         snakeBody.push({x: xPos, y:yPos})
 
         const snake = []
-
         for (let i = snakeBody.length -1; i > snakeBody.length - (snakeInitialLength + score) && i > 0; i--)
         {
             snake.push(snakeBody[i])
